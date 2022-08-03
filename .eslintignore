@@ -1,0 +1,9 @@
+node_modules/
+*.build
+*.log
+*.env
+tests/
+coverage/
+react-app-env.d.ts
+serviceWorker.ts
+setupTests.ts
