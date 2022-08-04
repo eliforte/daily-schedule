@@ -20,10 +20,10 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^3.11.0",
+    "react-lottie": "^1.2.3",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
-    "typescript": "^4.7.4",
-    "web-vitals": "^0.2.4"
+    "typescript": "^4.7.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -47,6 +47,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-lottie": "^1.2.6",
     "@typescript-eslint/eslint-plugin": "^5.30.7",
     "@typescript-eslint/parser": "^5.30.7",
     "eslint": "^8.20.0",
