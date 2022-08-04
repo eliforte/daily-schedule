@@ -9,23 +9,22 @@ import {
   Image,
   Flex,
 } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 import {
   MotionGrid,
   gridAnimation,
   MotionGridItem,
   gridItemAnimation,
 } from '../../styles/animation';
-// import { useNavigate } from 'react-router-dom';
 import Login from '../../components/login';
 import Register from '../../components/register';
 // import Loading from '../../components/loading';
 import animationData from '../../assets/31000-multitasking.json';
 
 const Home: React.FC = () => {
-  // const Navigate = useNavigate();
-  // const isLoggedIn = JSON.parse(localStorage.getItem('user'));
+  const Navigate = useNavigate();
+  const isLoggedIn = JSON.parse(String(sessionStorage.getItem('user')));
   const [loginOrRegister, setLoginOrRegister] = React.useState('login');
-
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -35,10 +34,9 @@ const Home: React.FC = () => {
     },
   };
 
-  // if (isLoggedIn) {
-  //   Navigate('/dashboard');
-  //   return <Loading />;
-  // }
+  if (isLoggedIn?.token) {
+    Navigate('/dashboard');
+  }
 
   return (
     <MotionGrid
