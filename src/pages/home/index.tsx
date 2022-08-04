@@ -1,23 +1,29 @@
 import React from 'react';
 import Lottie from 'react-lottie';
 import {
-  Grid,
-  GridItem,
+  // Grid,
+  // GridItem,
   Text,
   Button,
   Center,
   Image,
   Flex,
 } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import {
+  MotionGrid,
+  gridAnimation,
+  MotionGridItem,
+  gridItemAnimation,
+} from '../../styles/animation';
+// import { useNavigate } from 'react-router-dom';
 import Login from '../../components/login';
 import Register from '../../components/register';
-import Loading from '../../components/loading';
+// import Loading from '../../components/loading';
 import animationData from '../../assets/31000-multitasking.json';
 
 const Home: React.FC = () => {
-  const Navigate = useNavigate();
-  const isLoggedIn = localStorage.getItem('user');
+  // const Navigate = useNavigate();
+  // const isLoggedIn = JSON.parse(localStorage.getItem('user'));
   const [loginOrRegister, setLoginOrRegister] = React.useState('login');
 
   const defaultOptions = {
@@ -29,28 +35,33 @@ const Home: React.FC = () => {
     },
   };
 
-  if (isLoggedIn) {
-    Navigate('/dashboard');
-    return <Loading />;
-  }
+  // if (isLoggedIn) {
+  //   Navigate('/dashboard');
+  //   return <Loading />;
+  // }
 
   return (
-    <Grid
+    <MotionGrid
       templateColumns={['1fr', '1fr', '1fr', '1fr', '1fr 1fr']}
       height="100vh"
       alignItems="center"
       justifyItems="center"
       maxWidth="100%"
+      variants={gridAnimation}
+      initial="hidden"
+      animate="visible"
     >
-      <GridItem
+      <MotionGridItem
+        variants={gridItemAnimation}
         display={['none', 'none', 'none', 'block']}
       >
         <Lottie
           isClickToPauseDisabled
           options={defaultOptions}
         />
-      </GridItem>
-      <GridItem
+      </MotionGridItem>
+      <MotionGridItem
+        variants={gridItemAnimation}
         backgroundColor="white"
         p={5}
         alignItems="center"
@@ -104,8 +115,8 @@ const Home: React.FC = () => {
             </Center>
           )
         }
-      </GridItem>
-    </Grid>
+      </MotionGridItem>
+    </MotionGrid>
   );
 };
 
