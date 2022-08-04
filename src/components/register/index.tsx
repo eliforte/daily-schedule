@@ -1,9 +1,11 @@
 import React from 'react';
+import { AxiosError } from 'axios';
 import {
   InputGroup,
   Input,
   Button,
   Center,
+  useToast,
 } from '@chakra-ui/react';
 import api from '../../services/axios';
 
@@ -13,13 +15,32 @@ const Register: React.FC = () => {
     email: '',
     password: '',
   });
+  const toast = useToast();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const response = await api.post('/users', { ...register });
-      localStorage.setItem('user', JSON.stringify(response.data.token));
+      sessionStorage.setItem('user', JSON.stringify(response.data.token));
     } catch (err) {
+      if (err instanceof AxiosError) {
+        return toast({
+          position: 'top',
+          title: 'Ops!',
+          description: err.response?.data?.message,
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+      toast({
+        position: 'top',
+        title: 'Ops!',
+        description: 'Algo deu errado, tente novamente.',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
       console.log(err);
     }
   };

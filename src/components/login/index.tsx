@@ -21,31 +21,29 @@ const Login: React.FC = () => {
     e.preventDefault();
     try {
       const response = await api.post('/login', { ...loginInfo });
-      localStorage.setItem('user', JSON.stringify(response.data.token));
+      sessionStorage.setItem('user', JSON.stringify(response.data));
     } catch (err) {
       if (err instanceof AxiosError) {
-        toast({
+        return toast({
           position: 'top',
-          title: 'Opps!',
+          title: 'Ops!',
           description: err.response?.data?.message,
           status: 'error',
           duration: 3000,
           isClosable: true,
         });
       }
+      toast({
+        position: 'top',
+        title: 'Ops!',
+        description: 'Algo deu errado, tente novamente.',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
       console.log(err);
     }
   };
-
-  React.useEffect(() => {
-    localStorage.setItem('user', JSON.stringify(''));
-
-    return () => {
-      if (localStorage.getItem('user')) {
-        localStorage.removeItem('user');
-      }
-    };
-  }, []);
 
   return (
     <Center p={5}>
