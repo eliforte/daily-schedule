@@ -1,9 +1,11 @@
 import React from 'react';
+import { AxiosError } from 'axios';
 import {
   InputGroup,
   Input,
   Button,
   Center,
+  useToast,
 } from '@chakra-ui/react';
 import api from '../../services/axios';
 
@@ -13,15 +15,37 @@ const Login: React.FC = () => {
     password: '',
   });
 
+  const toast = useToast();
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const response = await api.post('/login', { ...loginInfo });
       localStorage.setItem('user', JSON.stringify(response.data.token));
     } catch (err) {
+      if (err instanceof AxiosError) {
+        toast({
+          position: 'top',
+          title: 'Opps!',
+          description: err.response?.data?.message,
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        });
+      }
       console.log(err);
     }
   };
+
+  React.useEffect(() => {
+    localStorage.setItem('user', JSON.stringify(''));
+
+    return () => {
+      if (localStorage.getItem('user')) {
+        localStorage.removeItem('user');
+      }
+    };
+  }, []);
 
   return (
     <Center p={5}>
