@@ -129,7 +129,7 @@ const theme = extendTheme({
         padding: 0,
         boxSizing: 'border-box',
         fontFamily: 'Inter, sans-serif',
-        backgroundColor: 'gray.100',
+        backgroundColor: 'gray.700',
       },
       html: {
         height: '100vh',
