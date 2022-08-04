@@ -7,6 +7,7 @@ import {
   Button,
   Center,
   Image,
+  Flex,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import Login from '../../components/login';
@@ -35,12 +36,15 @@ const Home: React.FC = () => {
 
   return (
     <Grid
-      templateColumns="1fr 1fr"
+      templateColumns={['1fr', '1fr', '1fr', '1fr', '1fr 1fr']}
       height="100vh"
       alignItems="center"
       justifyItems="center"
+      maxWidth="100%"
     >
-      <GridItem>
+      <GridItem
+        display={['none', 'none', 'none', 'block']}
+      >
         <Lottie
           isClickToPauseDisabled
           options={defaultOptions}
@@ -48,14 +52,24 @@ const Home: React.FC = () => {
       </GridItem>
       <GridItem
         backgroundColor="white"
-        w={['600px']}
         p={5}
         alignItems="center"
         gap={5}
-        borderRadius="15px"
+        borderRadius="5px"
         boxShadow="0px 0px 20px -4px #000000"
+        mb="0.5rem"
       >
         <Image src="title.svg" alt="daily schedule" />
+        <Flex
+          display={['block', 'block', 'block', 'none']}
+          w="100%"
+          alignItems="center"
+        >
+          <Lottie
+            isClickToPauseDisabled
+            options={defaultOptions}
+          />
+        </Flex>
         {
           loginOrRegister === 'login' ? <Login /> : <Register />
         }

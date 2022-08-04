@@ -30,14 +30,16 @@ const Login: React.FC = () => {
           gap={5}
           flexDirection="column"
           alignItems="center"
-          w={['500px']}
+          w={['100%', '500px']}
         >
           <Input
+            bg="gray.100"
             placeholder="Email"
             type="email"
             onChange={(e) => setLoginInfo({ ...loginInfo, email: e.target.value })}
           />
           <Input
+            bg="gray.100"
             placeholder="Senha"
             type="password"
             onChange={(e) => setLoginInfo({ ...loginInfo, password: e.target.value })}

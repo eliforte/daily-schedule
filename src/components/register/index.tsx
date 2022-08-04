@@ -31,19 +31,22 @@ const Register: React.FC = () => {
           gap={5}
           flexDirection="column"
           alignItems="center"
-          w={['500px']}
+          w={['100%', '500px']}
         >
           <Input
             placeholder="Nome"
+            bg="gray.100"
             type="text"
             onChange={(e) => setRegisterInfo({ ...register, name: e.target.value })}
           />
           <Input
+            bg="gray.100"
             placeholder="Email"
             type="email"
             onChange={(e) => setRegisterInfo({ ...register, email: e.target.value })}
           />
           <Input
+            bg="gray.100"
             placeholder="Senha"
             type="password"
             onChange={(e) => setRegisterInfo({ ...register, password: e.target.value })}
