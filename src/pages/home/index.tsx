@@ -1,8 +1,6 @@
 import React from 'react';
 import Lottie from 'react-lottie';
 import {
-  // Grid,
-  // GridItem,
   Text,
   Button,
   Center,
@@ -15,10 +13,9 @@ import {
   gridAnimation,
   MotionGridItem,
   gridItemAnimation,
-} from '../../styles/animation';
+} from './animation';
 import Login from '../../components/login';
 import Register from '../../components/register';
-// import Loading from '../../components/loading';
 import animationData from '../../assets/31000-multitasking.json';
 
 const Home: React.FC = () => {
