@@ -113,9 +113,9 @@ const theme = extendTheme({
       700: '#97266D',
       900: '#521B41',
     },
-    'in progress': '#F6E05E',
-    completed: '#C6F6D5',
-    'to do': '4A5568',
+    'in progress': '#ED8936',
+    done: '#48BB78',
+    'to do': '#4A5568',
   },
   breackpoints: {
     sm: '30em',
