@@ -5,8 +5,11 @@ import {
   Input,
   Button,
   Center,
+  Text,
+  Spinner,
   useToast,
 } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 import api from '../../services/axios';
 
 const Login: React.FC = () => {
@@ -14,25 +17,32 @@ const Login: React.FC = () => {
     email: '',
     password: '',
   });
+  const [loading, setLoading] = React.useState(false);
+  const Navigate = useNavigate();
 
   const toast = useToast();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    setLoading(true);
     e.preventDefault();
     try {
       const response = await api.post('/login', { ...loginInfo });
       sessionStorage.setItem('user', JSON.stringify(response.data));
+      setLoading(false);
+      Navigate('/dashboard');
     } catch (err) {
       if (err instanceof AxiosError) {
+        setLoading(false);
         return toast({
           position: 'top',
           title: 'Ops!',
           description: err.response?.data?.message,
-          status: 'error',
+          status: 'warning',
           duration: 3000,
           isClosable: true,
         });
       }
+      setLoading(false);
       toast({
         position: 'top',
         title: 'Ops!',
@@ -66,7 +76,22 @@ const Login: React.FC = () => {
             type="password"
             onChange={(e) => setLoginInfo({ ...loginInfo, password: e.target.value })}
           />
-          <Button border="1px solid #2B6CB0" color="#2B6CB0" type="submit">Entrar</Button>
+          <Button disabled={loading} border="1px solid #2B6CB0" color="#2B6CB0" type="submit">
+            {
+              loading
+                ? (
+                  <Text>
+                    Carregando...
+                    <Spinner
+                      size="sm"
+                      emptyColor="gray.200"
+                      color="blue.500"
+                    />
+                  </Text>
+                )
+                : 'Entrar'
+            }
+          </Button>
         </InputGroup>
       </form>
     </Center>
