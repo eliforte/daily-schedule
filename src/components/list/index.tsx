@@ -13,6 +13,7 @@ import {
   AccordionButton,
   AccordionPanel,
   AccordionIcon,
+  Center,
 } from '@chakra-ui/react';
 import { AxiosError } from 'axios';
 import { EditIcon } from '@chakra-ui/icons';
@@ -90,35 +91,42 @@ const ListTasks: React.FC = () => {
   if (!data) return <Loading />;
 
   return (
-    <Grid>
+    <Grid
+      p={5}
+    >
       <MotionGridItem
         variants={GridItemAnimation}
         bg="gray.100"
+        borderRadius="10px"
       >
         <Accordion allowMultiple>
           {
             data.map((task) => (
               <AccordionItem key={task._id}>
                 <AccordionButton justifyContent="space-between">
-                  <Heading as="h3" size="lg">{task.title}</Heading>
-                  <Tag
-                    fontWeight="bold"
-                    size="md"
-                    color="whiteAlpha.900"
-                    variant="subtle"
-                    bg={task.status}
-                  >
-                    { statusInPortuguese[task.status] }
-                  </Tag>
-                  <Tag
-                    fontWeight="bold"
-                    size="md"
-                    color="whiteAlpha.900"
-                    variant="subtle"
-                    bg="blue.300"
-                  >
-                    { convertDate(task.createdAt) }
-                  </Tag>
+                  <Center flexDirection={['column']}>
+                    <Heading as="h3" size="lg">{task.title}</Heading>
+                    <Tag
+                      fontWeight="bold"
+                      size="md"
+                      m={2}
+                      color="whiteAlpha.900"
+                      variant="subtle"
+                      bg={task.status}
+                    >
+                      { statusInPortuguese[task.status] }
+                    </Tag>
+                    <Tag
+                      fontWeight="bold"
+                      size="md"
+                      m={2}
+                      color="whiteAlpha.900"
+                      variant="subtle"
+                      bg="blue.300"
+                    >
+                      { convertDate(task.createdAt) }
+                    </Tag>
+                  </Center>
                   <AccordionIcon />
                 </AccordionButton>
                 <AccordionPanel>

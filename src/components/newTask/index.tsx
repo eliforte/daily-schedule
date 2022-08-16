@@ -4,12 +4,10 @@ import {
   InputGroup,
   Input,
   Button,
-  InputLeftElement,
   Text,
   Spinner,
   useToast,
 } from '@chakra-ui/react';
-import { ArrowForwardIcon } from '@chakra-ui/icons';
 import api from '../../services/axios';
 
 const CreateTask: React.FC = () => {
@@ -51,13 +49,14 @@ const CreateTask: React.FC = () => {
 
   return (
     <form onSubmit={(e) => createTask(e)}>
-      <InputGroup>
-        <InputLeftElement
-          pointerEvents="none"
-          children={<ArrowForwardIcon color="gray.400" />}
-        />
+      <InputGroup
+        p={[5]}
+        justifyContent="space-around"
+      >
         <Input
           placeholder="Nova tarefa"
+          bg="gray.100"
+          width="200px"
           onChange={(e) => setTask(e.target.value)}
           value={task}
           justifyContent="center"
@@ -65,6 +64,7 @@ const CreateTask: React.FC = () => {
         <Button
           type="submit"
           variant="solid"
+          disabled={loading}
         >
           {
             loading
