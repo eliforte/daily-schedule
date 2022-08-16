@@ -5,6 +5,8 @@ import {
   Input,
   Button,
   Center,
+  Text,
+  Spinner,
   useToast,
 } from '@chakra-ui/react';
 import api from '../../services/axios';
@@ -15,24 +17,29 @@ const Register: React.FC = () => {
     email: '',
     password: '',
   });
+  const [loading, setLoading] = React.useState(false);
   const toast = useToast();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    setLoading(true);
     e.preventDefault();
     try {
       const response = await api.post('/users', { ...register });
       sessionStorage.setItem('user', JSON.stringify(response.data.token));
+      setLoading(false);
     } catch (err) {
       if (err instanceof AxiosError) {
+        setLoading(false);
         return toast({
           position: 'top',
           title: 'Ops!',
           description: err.response?.data?.message,
-          status: 'error',
+          status: 'warning',
           duration: 3000,
           isClosable: true,
         });
       }
+      setLoading(false);
       toast({
         position: 'top',
         title: 'Ops!',
@@ -72,7 +79,22 @@ const Register: React.FC = () => {
             type="password"
             onChange={(e) => setRegisterInfo({ ...register, password: e.target.value })}
           />
-          <Button border="1px solid #2B6CB0" color="#2B6CB0" type="submit">Registrar-se</Button>
+          <Button border="1px solid #2B6CB0" color="#2B6CB0" type="submit">
+            {
+              loading
+                ? (
+                  <Text>
+                    Carregando...
+                    <Spinner
+                      size="sm"
+                      emptyColor="gray.200"
+                      color="blue.500"
+                    />
+                  </Text>
+                )
+                : 'Registra-se'
+            }
+          </Button>
         </InputGroup>
       </form>
     </Center>
