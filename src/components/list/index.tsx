@@ -41,6 +41,12 @@ const ListTasks: React.FC = () => {
 
   const user = JSON.parse(String(sessionStorage.getItem('user')));
 
+  const statusInPortuguese: { [key: string]: string } = {
+    'in progress': 'em andamento',
+    'to do': 'a fazer',
+    done: 'feito',
+  };
+
   const getAllTask = async () => {
     setLoading(true);
     try {
@@ -95,15 +101,32 @@ const ListTasks: React.FC = () => {
               <AccordionItem key={task._id}>
                 <AccordionButton justifyContent="space-between">
                   <Heading as="h3" size="lg">{task.title}</Heading>
-                  <Tag size="md" variant="subtle" bg={task.status}>{ task.status }</Tag>
-                  <Tag size="md" variant="subtle" bg="blue.300">{ convertDate(task.createdAt) }</Tag>
+                  <Tag
+                    fontWeight="bold"
+                    size="md"
+                    color="whiteAlpha.900"
+                    variant="subtle"
+                    bg={task.status}
+                  >
+                    { statusInPortuguese[task.status] }
+                  </Tag>
+                  <Tag
+                    fontWeight="bold"
+                    size="md"
+                    color="whiteAlpha.900"
+                    variant="subtle"
+                    bg="blue.300"
+                  >
+                    { convertDate(task.createdAt) }
+                  </Tag>
                   <AccordionIcon />
                 </AccordionButton>
                 <AccordionPanel>
                   <Flex alignItems="center" justifyContent="space-between">
                     <Text>{ task.description}</Text>
                     <Button
-                      _hover={{ backgroundColor: 'gray.100' }}
+                      bg="transparent"
+                      _hover={{ backgroundColor: 'transparent' }}
                       rightIcon={<EditIcon />}
                       onClick={onOpen}
                     />
@@ -115,8 +138,9 @@ const ListTasks: React.FC = () => {
                   initialRef={initialRef}
                   finalRef={finalRef}
                   setLoading={setLoading}
-                  id={task._id}
                   loading={loading}
+                  task={task}
+                  getAllTask={getAllTask}
                 />
               </AccordionItem>
             ))
