@@ -4,16 +4,18 @@ import {
 } from '@chakra-ui/react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import Home from './pages/home';
+import Dashboard from './pages/dashboard';
 import theme from './styles/globalStyles';
 
 const App: React.FC = () => (
-  <BrowserRouter>
-    <ChakraProvider theme={theme}>
+  <ChakraProvider theme={theme}>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
-    </ChakraProvider>
-  </BrowserRouter>
+    </BrowserRouter>
+  </ChakraProvider>
 );
 
 export default App;
